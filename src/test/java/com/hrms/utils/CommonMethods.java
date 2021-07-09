@@ -2,21 +2,26 @@ package com.hrms.utils;
 
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import sun.java2d.pipe.SpanShapeRenderer;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class CommonMethods {
 
-    protected static WebDriver driver;
+    public static WebDriver driver;
 
 
 
@@ -60,13 +65,18 @@ public class CommonMethods {
     }
 
     /**
-     * THIS METHOD WILL CLEAR A TEXT BOX AND END TEXT TO IT
+     * THIS METHOD WILL CLEAR A TEXT BOX AND ENTER TEXT TO IT
      * @param element
      * @param textToSend
      */
     public static void sendText(WebElement element, String textToSend){
         element.clear();
         element.sendKeys(textToSend);
+    }
+
+    public static String getValueFromBox(WebElement element){
+         String value = element.getText().toString();
+        return value;
     }
 
     /**
@@ -94,4 +104,46 @@ public class CommonMethods {
         waitForClickability(element);
         element.click();
     }
+
+    /**
+     * this method creates an object of JavaScript Executor
+     * @return
+     */
+    public static JavascriptExecutor getJSExecutor(){
+        JavascriptExecutor js = (JavascriptExecutor)driver;
+        return js;
+    }
+
+    /**
+     * this method implements js click on WebElement
+     * @param element
+     */
+    public static void jsClick(WebElement element){
+
+
+        getJSExecutor().executeScript("arguments[0].click();", element);
+    }
+
+    /**
+     * this method takes screenshot and saves is to scheenshot directory in our framework root folder
+     * @param fileName
+     */
+    public static void takeScreenshot(String fileName){
+        TakesScreenshot ts = (TakesScreenshot)driver;
+        File sourceFile = ts.getScreenshotAs(OutputType.FILE);
+
+        try{
+        FileUtils.copyFile(sourceFile, new File(Constants.SCREENSHOT_FILEPATH + fileName + getTimeStamp("yyyy-MM-dd-HH-mm-ss") + " .png"));
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public static String getTimeStamp(String pattern){
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+        return sdf.format(date);
+    }
+
+
 }

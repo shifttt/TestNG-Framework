@@ -16,8 +16,20 @@ public class LoginPage extends CommonMethods {
     @FindBy(css = "input#btnLogin")
     public WebElement loginBtn;
 
+    @FindBy(id = "spanMessage")
+    public WebElement errorMsg;
+
+
     public LoginPage(){
         PageFactory.initElements(driver, this);
+    }
+
+    public void login(String uname, String password){
+
+        sendText(username, uname);
+        sendText(passwordBox, password);
+        click(loginBtn);
+
     }
 
 
