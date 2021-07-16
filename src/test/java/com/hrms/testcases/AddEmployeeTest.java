@@ -7,6 +7,7 @@ import com.hrms.utils.Constants;
 import com.hrms.utils.ExcelReading;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -43,6 +44,8 @@ public class AddEmployeeTest extends CommonMethods {
         click(addEmp.saveButton);
 
         //validation
+
+      //  Assert.assertEquals();
 
 
         SoftAssert addEmpSoftAssertion = new SoftAssert();

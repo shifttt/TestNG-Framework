@@ -1,0 +1,12 @@
+com/hrms/pages/DashboardPage.class
+com/hrms/pages/AddEmployeePage.class
+com/hrms/pages/LoginPage.class
+com/hrms/pages/PersonalDetailPage.class
+com/hrms/utils/Constants.class
+com/hrms/testcases/AddEmployeeTest.class
+com/hrms/utils/ExcelReading.class
+com/hrms/utils/Listeners.class
+com/hrms/utils/ConfigsReader.class
+com/hrms/testcases/LoginTest.class
+com/hrms/pages/EmployeeListPage.class
+com/hrms/utils/CommonMethods.class
